@@ -8,17 +8,38 @@ public class vendasVIEW extends javax.swing.JFrame {
     
     public vendasVIEW() {
         initComponents();
+        listarProdutosVendidos();
         
     }
 
-    
+    public void listarProdutosVendidos(){
+
+    DefaultTableModel modelo = (DefaultTableModel) tabelaVendas.getModel();
+
+    modelo.setRowCount(0);
+
+    ProdutosDAO dao = new ProdutosDAO();
+
+    ArrayList<ProdutosDTO> lista = dao.listarProdutosVendidos();
+
+    for (ProdutosDTO p : lista){
+
+        modelo.addRow(new Object[]{
+            p.getId(),
+            p.getNome(),
+            p.getValor(),
+            p.getStatus()
+        });
+    }
+}
+
    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
         jScrollPane1 = new javax.swing.JScrollPane();
-        listaProdutos = new javax.swing.JTable();
+        tabelaVendas = new javax.swing.JTable();
         jLabel1 = new javax.swing.JLabel();
         jSeparator1 = new javax.swing.JSeparator();
         btnVoltar = new javax.swing.JButton();
@@ -44,8 +65,8 @@ public class vendasVIEW extends javax.swing.JFrame {
 
             tabelaModelo.addRow(linha);
         }
-        listaProdutos.setModel(tabelaModelo);
-        jScrollPane1.setViewportView(listaProdutos);
+        tabelaVendas.setModel(tabelaModelo);
+        jScrollPane1.setViewportView(tabelaVendas);
 
         jLabel1.setFont(new java.awt.Font("Lucida Fax", 0, 18)); // NOI18N
         jLabel1.setText("Lista de Produtos");
@@ -138,7 +159,7 @@ public class vendasVIEW extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;
-    private javax.swing.JTable listaProdutos;
+    private javax.swing.JTable tabelaVendas;
     // End of variables declaration//GEN-END:variables
 
 }
